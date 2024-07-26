@@ -389,15 +389,126 @@ function checkRedundancy(s) {
 function nextLargerElement(arr, n) {
   let st = [];
   let res = [];
-  for (let i = n - 1; i >=0; i--) {
-      while (st.length && arr[i] >= st[st.length - 1]) {
-          st.pop();
-      }
-      if (!st.length) res[i] = -1;
-      else if (arr[i] < st[st.length - 1]) {
-          res[i] = st[st.length - 1];
-      }
-      st.push(arr[i]);
+  for (let i = n - 1; i >= 0; i--) {
+    while (st.length && arr[i] >= st[st.length - 1]) {
+      st.pop();
+    }
+    if (!st.length) res[i] = -1;
+    else if (arr[i] < st[st.length - 1]) {
+      res[i] = st[st.length - 1];
+    }
+    st.push(arr[i]);
   }
   return res;
+}
+
+
+// Evaluation of Postfix Expression
+function evaluatePostfix(S) {
+  const stack = []
+  const operators = ['+', '-', '*', '/']
+  tokens.forEach((token) => {
+    if (operators.includes(token)) {
+      const b = stack.pop()
+      const a = stack.pop()
+      if (token === '+')
+        stack.push(a + b)
+      else if (token === '-')
+        stack.push(a - b)
+      else if (token === '*')
+        stack.push(a * b)
+      else if (token === '/')
+        stack.push(Math.trunc(a / b))
+    }
+    else {
+      stack.push(parseInt(token))
+    }
+  })
+  const res = stack[0];
+  return res === -0 ? 0 : res;
+}
+
+
+
+class SpecialStack {
+  constructor() {
+    this.stack = [];
+    this.minStack = [];
+  }
+  /** 
+   * @param {number} x
+   * @return {void}
+   */
+  push(x) {
+    this.stack.push(x);
+    if (!this.minStack.length || x < this.minStack[this.minStack.length - 1]) this.minStack.push(x);
+  }
+  /**
+   * @return {number}
+   */
+  pop() {
+    const val = this.stack.pop();
+    if (val === this.min) this.minStack.pop();
+    return val;
+  }
+
+  /**
+   * @return {boolean}
+   */
+  isFull() {
+    return this.stack.length === 10e4;
+  }
+  /**
+   * @return {boolean}
+   */
+  isEmpty() {
+    return !this.stack.length;
+  }
+  /**
+   * @return {number}
+   */
+  getMin() {
+    return this.minStack[this.minStack.length - 1];
+  }
+}
+
+
+
+// Queue using two stacks
+class StackQueue {
+  constructor() {
+    this.s1 = new Stack();
+    this.s2 = new Stack();
+  }
+
+  /**
+   * @param {number} B
+  */
+  //Function to push an element in queue by using 2 stacks.
+  push(B) {
+    this.s1.push(B);
+  }
+
+  /**
+   * @returns {number}
+  */
+  //Function to pop an element from queue by using 2 stacks.
+  pop() {
+    if (this.s1.empty()) return -1;
+
+    while (this.s1.top > 0) {
+      this.s2.push(this.s1.front());
+      this.s1.pop();
+    }
+
+    const front = this.s1.front();
+    this.s1.pop();
+
+    while (this.s2.top > -1) {
+      this.s1.push(this.s2.front());
+      this.s2.pop()
+    }
+
+    return front;
+  }
 }

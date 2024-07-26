@@ -1,5 +1,5 @@
-import { Node } from './data-structures/BinaryTree.mjs';
-import { MinHeap } from './data-structures/Heap.mjs';
+import { Node } from '../data-structures/BinaryTree.mjs';
+import { MinHeap } from '../data-structures/Heap.mjs';
 
 // N meetings in a room
 function maxMeetings(start, end, n) {

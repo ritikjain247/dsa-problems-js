@@ -50,7 +50,7 @@ class KQueues {
       // Update next of rear for queue number 'j'
       this.next[this.rear[j]] = this.free;
     }
-    
+
     // update rear
     this.rear[j] = this.free;
 
@@ -216,4 +216,157 @@ function firstNonRepeating(arr) {
     res += queue.length ? queue[0] : '#';
   }
   return res;
+}
+
+
+// Queue using two stacks
+class StackQueue {
+  constructor() {
+    this.s1 = new Stack();
+    this.s2 = new Stack();
+  }
+
+  /**
+   * @param {number} B
+  */
+  //Function to push an element in queue by using 2 stacks.
+  push(B) {
+    this.s1.push(B);
+  }
+
+  /**
+   * @returns {number}
+  */
+  //Function to pop an element from queue by using 2 stacks.
+  pop() {
+    if (this.s1.empty()) return -1;
+
+    while (this.s1.top > 0) {
+      this.s2.push(this.s1.front());
+      this.s1.pop();
+    }
+
+    const front = this.s1.front();
+    this.s1.pop();
+
+    while (this.s2.top > -1) {
+      this.s1.push(this.s2.front());
+      this.s2.pop()
+    }
+
+    return front;
+  }
+}
+
+
+// rotten oranges
+function orangesRottingBrute(grid) {
+  const n = grid.length;
+  const m = grid[0].length;
+
+  const visited = Array.from({ length: n }, () => new Array(m).fill(false));
+
+  let fresh = 0;
+  let queue = [];
+
+  function countFresh() {
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < m; j++) {
+        if (grid[i][j] === 1) {
+          fresh++;
+        }
+      }
+    }
+  }
+  countFresh();
+
+  function enque() {
+    for (let i = 0; i < n; i++) {
+      for (let j = 0; j < m; j++) {
+        if (grid[i][j] === 2) {
+          if (i + 1 < n && grid[i + 1][j] === 1 && !visited[i + 1][j]) {
+            queue.push([i + 1, j]);
+            visited[i + 1][j] = true;
+          }
+          if (j + 1 < m && grid[i][j + 1] === 1 && !visited[i][j + 1]) {
+            queue.push([i, j + 1]);
+            visited[i][j + 1] = true;
+          }
+          if (i - 1 >= 0 && grid[i - 1][j] === 1 && !visited[i - 1][j]) {
+            queue.push([i - 1, j]);
+            visited[i - 1][j] = true;
+          }
+          if (j - 1 >= 0 && grid[i][j - 1] === 1 && !visited[i][j - 1]) {
+            queue.push([i, j - 1]);
+            visited[i][j - 1] = true;
+          }
+        }
+      }
+    }
+  }
+  enque();
+
+  let timer = 0;
+
+  while (fresh) {
+    while (queue.length) {
+      let [x, y] = queue.shift();
+      grid[x][y] = 2;
+      fresh--;
+    }
+    timer++;
+    enque();
+    if (!queue.length) break;
+  }
+
+  return !fresh ? timer : -1;
+
+}
+
+// rotten oranges
+function orangesRottingBFS(grid) {
+  const n = grid.length;
+  const m = grid[0].length;
+  let fresh = 0;
+  let queue = [];
+  const directions = [[1, 0], [0, 1], [-1, 0], [0, -1]];
+
+  // Count fresh oranges and enqueue all rotten oranges
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < m; j++) {
+      if (grid[i][j] === 1) {
+        fresh++;
+      } else if (grid[i][j] === 2) {
+        queue.push([i, j]);
+      }
+    }
+  }
+
+  if (fresh === 0) return 0; // No fresh oranges to rot
+
+  let timer = 0;
+
+  // Perform BFS
+  while (queue.length > 0) {
+    let newQueue = [];
+    while (queue.length > 0) {
+      let [x, y] = queue.shift();
+      for (let [dx, dy] of directions) {
+        let nx = x + dx;
+        let ny = y + dy;
+        if (nx >= 0 && ny >= 0 && nx < n && ny < m && grid[nx][ny] === 1) {
+          grid[nx][ny] = 2;
+          fresh--;
+          newQueue.push([nx, ny]);
+        }
+      }
+    }
+    if (newQueue.length > 0) {
+      timer++;
+      queue = newQueue;
+    }
+  }
+
+  return fresh === 0 ? timer : -1;
+
 }
