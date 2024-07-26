@@ -1,3 +1,3 @@
-Popular DSA problems solved with JavaScript.
+DSA problems solved with JavaScript.
 
-Covered all data structures, algorithms and patterns.
+Covered all data structures custom implementations, popular algorithms and patterns asked in interviews.
