@@ -1723,7 +1723,37 @@ function minCostOpt(costs) {
 
 
 
-// const costs = [[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12]];
-const costs = [[5]];
-const cost = minCost(costs);
-console.log(cost);;
+// Form a palindrome
+function countMin(str) {
+  const n = str.length;
+
+  // const dp = Array.from({ length: n }, () => Array(n).fill(-1));
+  // function minInsertionsMem(left, right) {
+  //   if (left >= right) {
+  //     return 0; // Base case: a single character or an empty string is a palindrome
+  //   }
+  //   if (dp[left][right] != -1) return dp[left][right];
+  //   if (str[left] === str[right]) {
+  //     dp[left][right] = minInsertionsMem(left + 1, right - 1); // Characters match, no insertion needed
+  //   } else {
+  //     dp[left][right] = 1 + Math.min(minInsertionsMem(left + 1, right), minInsertionsMem(left, right - 1)); // Characters don't match, need an insertion
+  //   }
+  //   return dp[left][right];
+  // }
+  // return minInsertionsMem(0, n - 1);
+
+  const dp = Array.from({ length: n }, () => Array(n).fill(0));
+
+  for (let length = 2; length <= n; length++) {
+    for (let i = 0; i <= n - length; i++) {
+      const j = i + length - 1;
+      if (str[i] === str[j]) {
+        dp[i][j] = dp[i + 1][j - 1];
+      } else {
+        dp[i][j] = 1 + Math.min(dp[i + 1][j], dp[i][j - 1]);
+      }
+    }
+  }
+
+  return dp[0][n - 1];
+}

@@ -13,7 +13,7 @@ function findMaxProduct(arr) {
   return solve(0, 1, false);
 }
 
-function findMaxProduct(arr) {
+function findMaxProduct2(arr) {
   const MOD = 1000000007;
   arr.sort((a, b) => a - b);
 
@@ -46,4 +46,51 @@ function findMaxProduct(arr) {
   }
 
   return ans % MOD;
+}
+
+
+
+var productExceptSelf = function (nums) {
+  // const prodAll = nums.reduce((prod, curr) => prod * (curr || 1), 1);
+  // const hasZero = nums.indexOf(0) >= 0 ? true : false;
+  // const hasZeroes = hasZero && nums.lastIndexOf(0) !== nums.indexOf(0);
+  // return nums.map(curr => {
+  //     if ((hasZero && curr) || (hasZeroes && !curr)) return 0;
+  //     else if (!curr) return prodAll;
+  //     else return prodAll / curr;
+  // });
+
+  const n = nums.length;
+  const ans = Array.from(n).fill(1);
+  let prefix = 1;
+  let suffix = 1;
+
+  for (let i = 0; i < n; i++) {
+    ans[i] = prefix;
+    prefix *= nums[i]
+  }
+  for (let i = n - 1; i >= 0; i--) {
+    ans[i] *= suffix;
+    suffix *= nums[i]
+  }
+
+  return ans;
+};
+
+
+// Maximize sum after K negations
+function maximizeSum(arr, n, k) {
+  arr.sort((a, b) => a - b);
+  for (let i = 0; i < n && k > 0; i++) {
+    if (arr[i] < 0) {
+      arr[i] = -arr[i];
+      k--;
+    }
+  }
+
+  if (k % 2 !== 0) {
+    arr.sort((a, b) => a - b);
+    arr[0] = -arr[0];
+  }
+  return arr.reduce((sum, curr) => sum + curr, 0);
 }
