@@ -94,3 +94,17 @@ function maximizeSum(arr, n, k) {
   }
   return arr.reduce((sum, curr) => sum + curr, 0);
 }
+
+
+// Wine Buying and Selling
+function wineSelling(Arr, N) {
+  let work = 0;
+  let sum = 0;
+
+  for (let it of Arr) {
+    work += Math.abs(sum);
+    sum += it;
+  }
+
+  return work;
+}
