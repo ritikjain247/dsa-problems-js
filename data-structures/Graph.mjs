@@ -76,3 +76,46 @@ function dfs(node, visited, adj, component) {
     }
   }
 }
+
+
+function depthFirstSearch(graph, source) {
+  if (Object.keys(graph).length === 0) [];
+
+  const visited = new Set();
+  function traverse(node) {
+    if (visited.has(node)) {
+      return;
+    }
+    visited.add(node);
+    graph[node].forEach((neighbor) => {
+      traverse(neighbor);
+    });
+  }
+
+  traverse(source);
+  return Array.from(visited);
+}
+
+function depthFirstSearchIterative(graph, source) {
+  if (Object.keys(graph).length === 0) [];
+
+  const toBeVisited = [];
+  toBeVisited.push(source);
+  const visited = new Set();
+
+  while (toBeVisited.length !== 0) {
+    const node = toBeVisited.pop();
+    visited.add(node);
+
+    const neighbors = graph[node];
+    // Push neighbors, in reverse order, onto array to be visited
+    // to preserve original order of neighbors when visiting (popping off the array).
+    for (let i = neighbors.length - 1; i >= 0; i--) {
+      const neighbor = neighbors[i];
+      if (!visited.has(neighbor)) {
+        toBeVisited.push(neighbor);
+      }
+    }
+  }
+  return Array.from(visited);
+}

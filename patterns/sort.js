@@ -75,7 +75,7 @@ function bubbleSort(array, n) {
 // Bubble Sort recursive XXX
 function bubbleSortRec(array, n) {
   if (n === 0 || n === 1) return array;
-  for (let i = 0; i < n; i++) {
+  for (let i = 0; i < n - 1; i++) {
     if (array[i] > array[i + 1]) {
       let temp = array[i];
       array[i] = array[i + 1];
@@ -189,8 +189,8 @@ function quickSortInPlace(arr, left = 0, right = arr.length - 1) {
   let pivot = arr[right]; // Choose the rightmost element as pivot
   let partitionIndex = partition(arr, left, right, pivot);
   // Recursively sort elements before and after partition
-  quickSort(arr, left, partitionIndex - 1);
-  quickSort(arr, partitionIndex + 1, right);
+  quickSortInPlace(arr, left, partitionIndex - 1);
+  quickSortInPlace(arr, partitionIndex + 1, right);
   // No need to return anything as the array is sorted in place
 }
 function partition(arr, left, right, pivot) {

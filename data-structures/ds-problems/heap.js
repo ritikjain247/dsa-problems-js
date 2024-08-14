@@ -61,7 +61,7 @@ function buildHeap(arr, n) {
 //Function to sort an array using Heap Sort.
 function heapSort(arr, n) {
   buildHeap(arr, n);
-  for (let i = n - 1; i > 0; i--) {
+  for (let i = n - 1; i >= 0; i--) {
     swap(arr, 0, i);
     heapify(arr, i, 0);
   }

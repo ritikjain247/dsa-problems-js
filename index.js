@@ -5,7 +5,7 @@ const myGraphLib = 'https://www.npmjs.com/package/react-d3-graph-modified'
 // Frontend Resources
 const google = 'https://web.dev/'
 const learningKit = 'https://github.com/sadanandpai/frontend-learning-kit';
-const frontendResource = 'https://www.greatfrontend.com/';
+const greatFrontendResource = 'https://www.greatfrontend.com/';
 const bigfrontend = 'https://bigfrontend.dev/';
 const chakdeFEInterviewQuestions = 'https://www.youtube.com/watch?v=c_kVh_-gQtI';
 const UIBasedProblems = ['https://workat.tech/frontend-development/practice', 'https://www.w3schools.com/howto/default.asp'];
@@ -27,6 +27,7 @@ const binarySearchQs = 'https://docs.google.com/document/d/1V6-bCyst7xYYiMl6mjrg
 
 const jsDsaResources = 'https://github.com/manassahoo-dev/DSA';
 const gfgDSA = 'https://www.geeksforgeeks.org/graph-data-structure-and-algorithms/';
+const dpRoadmap = 'https://whimsical.com/dp-sheet-by-love-babbar-EELKgSMWg51ypLyfn9mTjr'
 
 
 // Technical Round
@@ -42,7 +43,7 @@ const chakdeSystemDesign = 'https://www.youtube.com/playlist?list=PL4CFloQ4GGWIC
 const frontendMasterySysDes = 'https://frontendmastery.com/posts/frontend-system-design-interview-guide/';
 const BFEDesign = 'https://bigfrontend.dev/design';
 const namasteFeSysDes = 'https://namastedev.com/learn/namaste-frontend-system-design';
-
+const designPatterns = 'https://www.patterns.dev/';
 
 // Behavioural/Cultural-Fit Round
 const behavioralInterview = 'https://www.greatfrontend.com/behavioral-interview-guidebook';
